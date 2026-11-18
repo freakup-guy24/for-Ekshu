@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>Notes</title>
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#000000">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="theme-black">
+
+  <!-- ================= CALCULATOR DISGUISE (STEALTH MODE) ================= -->
+  <div id="disguise-screen" class="disguise-view">
+    <div class="calc-header">
+      <div class="calc-pill">Standard</div>
+      <div class="calc-status" id="calcStatus">0</div>
+    </div>
+    <div class="calc-display" id="calcDisplay">0</div>
+    <div class="calc-grid">
+      <button class="c-btn fn" data-val="C">C</button>
+      <button class="c-btn fn" data-val="±">±</button>
+      <button class="c-btn fn" data-val="%">%</button>
+      <button class="c-btn op" data-val="/">÷</button>
+
+      <button class="c-btn num" data-val="7">7</button>
+      <button class="c-btn num" data-val="8">8</button>
+      <button class="c-btn num" data-val="9">9</button>
+      <button class="c-btn op" data-val="*">×</button>
+
+      <button class="c-btn num" data-val="4">4</button>
+      <button class="c-btn num" data-val="5">5</button>
+      <button class="c-btn num" data-val="6">6</button>
+      <button class="c-btn op" data-val="-">−</button>
+
+      <button class="c-btn num" data-val="1">1</button>
+      <button class="c-btn num" data-val="2">2</button>
+      <button class="c-btn num" data-val="3">3</button>
+      <button class="c-btn op" data-val="+">+</button>
+
+      <button class="c-btn num zero" data-val="0">0</button>
+      <button class="c-btn num" data-val=".">.</button>
+      <button class="c-btn eq" id="calcEquals">=</button>
+    </div>
+    <div class="calc-footer-hint">Normal Calculator • Tap PIN to open</div>
+  </div>
+
+  <!-- ================= MAIN APP (COMPACT PURE BLACK UI) ================= -->
+  <div id="secret-app" class="secret-view hidden">
+    <!-- Quick Stealth Bar -->
+    <header class="app-topbar">
+      <div class="brand-chip">
+        <span class="status-dot"></span>
+        <span class="brand-text">ELARA // 24.11</span>
+      </div>
+      <div class="top-actions">
+        <button id="quickLockBtn" class="action-btn stealth-lock" title="Quick Lock (Stealth)">
+          🔒 Lock
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="content-scroll">
+      
+      <!-- HERO COMPACT CARD -->
+      <section class="bento-card hero-card">
+        <div class="bento-glow"></div>
+        <div class="card-badge">NOVEMBER 24, 2026</div>
+        <h1 class="hero-title">Happy Birthday, <span class="highlight">Elara</span> 🖤</h1>
+        <p class="hero-sub">Welcome to your private vault. Built with pure black minimalist precision by Astrix.</p>
+        
+        <div class="hero-metrics">
+          <div class="metric-item">
+            <span class="metric-val" id="daysCounter">--</span>
+            <span class="metric-lbl">Days Connected</span>
+          </div>
+          <div class="metric-divider"></div>
+          <div class="metric-item">
+            <span class="metric-val">14th</span>
+            <span class="metric-lbl">Milestone</span>
+          </div>
+          <div class="metric-divider"></div>
+          <div class="metric-item">
+            <span class="metric-val">∞</span>
+            <span class="metric-lbl">Distance Zero</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- MISS YOU / NOTIFICATION TRIGGER BENTO -->
+      <section class="bento-card action-card">
+        <div class="card-header-compact">
+          <span class="tag-accent">SIGNAL</span>
+          <span class="card-time" id="networkStatus">Online • Ready</span>
+        </div>
+        <h2 class="card-heading">Ping Astrix 📡</h2>
+        <p class="card-desc">Pressing this sends an instant encrypted push ping directly to Astrix's phone & laptop.</p>
+        
+        <div class="ping-action-wrapper">
+          <button id="pingBtn" class="ping-trigger-btn">
+            <span class="pulse-ring"></span>
+            <span class="ping-icon">🖤</span>
+            <span class="ping-label">I'M MISSING YOU</span>
+          </button>
+        </div>
+
+        <div class="ping-status-tray" id="pingStatusTray">
+          <span class="ping-count-pill">Sent: <strong id="sentCount">0</strong> times</span>
+          <span class="ping-last-log" id="lastPingText">Ready to send pulse</span>
+        </div>
+      </section>
+
+      <!-- CONFIG BENTO (WEBHOOK / BOT SETUP) -->
+      <section class="bento-card settings-card">
+        <div class="card-header-compact">
+          <span class="tag-muted">DISPATCH CONFIG</span>
+          <button class="mini-toggle" id="toggleWebhookBtn">Edit Endpoint</button>
+        </div>
+        <div id="webhookSetup" class="webhook-panel hidden">
+          <p class="tiny-label">Discord / Telegram Webhook URL (for your alerts):</p>
+          <input type="text" id="webhookInput" class="compact-input" placeholder="https://discord.com/api/webhooks/... or ntfy.sh">
+          <button id="saveWebhookBtn" class="save-chip">Save Config</button>
+          <p class="tiny-help">Default uses instant ntfy channel: <code>ntfy.sh/astrix_elara_missyou</code> (Instant push on your phone/laptop without backend!).</p>
+        </div>
+      </section>
+
+      <!-- MEMORY / ROBLOX CHRONICLES BENTO -->
+      <section class="bento-grid-2">
+        <div class="bento-card bento-small">
+          <div class="card-badge">THE ORIGIN</div>
+          <h3>Roblox Nights 🎮</h3>
+          <p>Every time Roblox boots up, it echoes that very first server where our worlds collided. Long distance started there, but distance never won.</p>
+        </div>
+        <div class="bento-card bento-small">
+          <div class="card-badge">ORBIT</div>
+          <h3>The Moon Elara 🪐</h3>
+          <p>Named after Jupiter's 8th moon. Quiet, radiant, and circling something massive. You define my universe.</p>
+        </div>
+      </section>
+
+      <!-- LOVE NOTE VAULT -->
+      <section class="bento-card notes-vault">
+        <div class="card-header-compact">
+          <span class="tag-accent">TRANSMISSIONS</span>
+          <span class="card-time" id="noteTracker">Note 1 of 30</span>
+        </div>
+        <div class="transmission-box">
+          <blockquote id="activeNote" class="typewriter-quote">
+            "You are the quiet thought in between every chaotic second."
+          </blockquote>
+        </div>
+        <div class="transmission-nav">
+          <button id="prevNote" class="ctrl-btn">◀ Previous</button>
+          <button id="randomNote" class="ctrl-btn highlight-btn">Shuffle 🎲</button>
+          <button id="nextNote" class="ctrl-btn">Next ▶</button>
+        </div>
+      </section>
+
+      <!-- SECRET LETTER COLLAPSIBLE -->
+      <section class="bento-card letter-card">
+        <div class="letter-top" id="toggleLetter">
+          <div>
+            <span class="tag-muted">ENCRYPTED</span>
+            <h3 class="letter-title">The 24th November Letter ✉️</h3>
+          </div>
+          <span class="accordion-arrow" id="letterArrow">▼</span>
+        </div>
+        <div id="letterBody" class="letter-body hidden">
+          <p>Elakshi,</p>
+          <p>Most people measure distance in kilometers or time zones. I measure it in seconds until our next call, the frames of our Roblox sessions, and the moments I wish I could just hand you your birthday cake in person.</p>
+          <p>You turn 14 today. Keep your fierce independence, keep laughing at dumb inside jokes, and never forget that miles can only separate geography, never people who choose each other every day.</p>
+          <p class="signature">— Astrix 🖤</p>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- COMPACT BOTTOM TOOLBAR -->
+    <nav class="compact-nav">
+      <button class="nav-item active" data-tab="home">
+        <span class="nav-glyph">◈</span>
+        <span class="nav-caption">Main</span>
+      </button>
+      <button class="nav-item" id="quickPingNav">
+        <span class="nav-glyph">🖤</span>
+        <span class="nav-caption">Ping</span>
+      </button>
+      <button class="nav-item" id="lockNav">
+        <span class="nav-glyph">🔒</span>
+        <span class="nav-caption">Disguise</span>
+      </button>
+    </nav>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
